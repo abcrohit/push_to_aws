@@ -1,3 +1,6 @@
+import torch
+import torch.nn as nn
+from torch.utils.data import DataLoader,Dataset
 class Autoencoder1(nn.Module):
     """Used to Encode the features in the crypto dataset into a smaller Size
     variables :
