@@ -67,8 +67,8 @@ class MyDataset(Dataset):
         y=df.iloc[:,-1].values.tolist()
         y=[int(i) for i in y]
  
-    self.x_train=torch.tensor(x,dtype=torch.float32)
-    self.y_train=torch.tensor(y,dtype=torch.float32)
+        self.x_train=torch.tensor(x,dtype=torch.float32)
+        self.y_train=torch.tensor(y,dtype=torch.float32)
  
     def __len__(self):
         return len(self.y_train)
