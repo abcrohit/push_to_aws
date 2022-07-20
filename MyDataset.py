@@ -2,11 +2,6 @@ import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader,Dataset
 class Autoencoder1(nn.Module):
-    """Used to Encode the features in the crypto dataset into a smaller Size
-    variables :
-    input size
-    feature size
-    """
     def __init__(self):
         super(Autoencoder1,self).__init__()
         input_size=166
@@ -67,20 +62,19 @@ def trainAE(DataLoader):
     
     
 class MyDataset(Dataset):
- 
-  def __init__(self,df):
-    x=df.iloc[:,0:-1].values
-    y=df.iloc[:,-1].values.tolist()
-    y=[int(i) for i in y]
+    def __init__(self,df):
+        x=df.iloc[:,0:-1].values
+        y=df.iloc[:,-1].values.tolist()
+        y=[int(i) for i in y]
  
     self.x_train=torch.tensor(x,dtype=torch.float32)
     self.y_train=torch.tensor(y,dtype=torch.float32)
  
-  def __len__(self):
-    return len(self.y_train)
-
-  def __getitem__(self,idx):
-    return self.x_train[idx],self.y_train[idx]
+    def __len__(self):
+        return len(self.y_train)
+    def __getitem__(self,idx):
+        return self.x_train[idx],self.y_train[idx]
+    
 model=Autoencoder1()
 model.load_state_dict(torch.load("AE.pth"))
 
@@ -88,27 +82,22 @@ def transform(x):
     x=torch.tensor(x,dtype=torch.float32)
     return model.encoder(x).detach().numpy()
 class MyDatasetCompress(Dataset):
- 
-  def __init__(self,df):
-    x=transform(df.iloc[:,:-1].values)
-    y=df.iloc[:,-1].values.tolist()
-    y=[int(i) for i in y]
- 
-    self.x_train=torch.tensor(x,dtype=torch.float32)
-    self.y_train=torch.tensor(y,dtype=torch.float32)
- 
-  def __len__(self):
-    return len(self.y_train)
-
-  def __getitem__(self,idx):
-    return self.x_train[idx],self.y_train[idx]
+    def __init__(self,df):
+        x=transform(df.iloc[:,:-1].values)
+        y=df.iloc[:,-1].values.tolist()
+        y=[int(i) for i in y]
+        self.x_train=torch.tensor(x,dtype=torch.float32)
+        self.y_train=torch.tensor(y,dtype=torch.float32)
+    def __len__(self):
+        return len(self.y_train)
+    def __getitem__(self,idx):
+        return self.x_train[idx],self.y_train[idx]
 class datasetfromtensor(Dataset):
-    
     def __init__(self,X,y):
         self.x_train=X
         self.y_train=y
     def __len__(self)
-         return len(self.y_train)
+        return len(self.y_train)
     def __getitem__(self,idx):
         return self.x_train[idx],self.y_train[idx]
     
