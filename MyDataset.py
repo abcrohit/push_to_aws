@@ -96,7 +96,7 @@ class datasetfromtensor(Dataset):
     def __init__(self,X,y):
         self.x_train=X
         self.y_train=y
-    def __len__(self)
+    def __len__(self):
         return len(self.y_train)
     def __getitem__(self,idx):
         return self.x_train[idx],self.y_train[idx]
