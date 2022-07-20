@@ -1,4 +1,6 @@
 import matplotlib.pyplot as plt
+import torch
+
 def plotdist(model,Dataset,granularity=1000):
     X=Dataset.x_train
     Y=Dataset.y_train
